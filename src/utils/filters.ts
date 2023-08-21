@@ -18,32 +18,32 @@ export const defaultFilters: Array<Filter> = [
     name: 'Hackathon Track',
     options: [
       {
-        id: 'Mobile',
+        id: 'DePIN',
         isSelected: false,
         count: 0,
       },
       {
-        id: 'DeFi',
-        isSelected: false,
-        count: 0,
-      },
-      {
-        id: 'Payments',
-        isSelected: false,
-        count: 0,
-      },
-      {
-        id: 'Consumer',
-        isSelected: false,
-        count: 0,
-      },
-      {
-        id: 'Tools & Infrastructure',
+        id: 'DeFi & Payments',
         isSelected: false,
         count: 0,
       },
       {
         id: 'Gaming',
+        isSelected: false,
+        count: 0,
+      },
+      {
+        id: 'Mobile Consumer dApps',
+        isSelected: false,
+        count: 0,
+      },
+      {
+        id: 'Infrastructure Business',
+        isSelected: false,
+        count: 0,
+      },
+      {
+        id: 'AI',
         isSelected: false,
         count: 0,
       },
@@ -83,6 +83,31 @@ export const defaultFilters: Array<Filter> = [
         isSelected: false,
         count: 0,
       },
+      {
+        id: 'UAE',
+        isSelected: false,
+        count: 0,
+      },
+      {
+        id: 'UK',
+        isSelected: false,
+        count: 0,
+      },
+      {
+        id: 'Nigeria',
+        isSelected: false,
+        count: 0,
+      },
+      {
+        id: 'Israel',
+        isSelected: false,
+        count: 0,
+      },
+      {
+        id: 'Brazil',
+        isSelected: false,
+        count: 0,
+      },
     ],
   },
 ];
@@ -92,8 +117,8 @@ export const initFilters = (responses: Array<Response>) => {
     const optionsWithCount = f.options.map((o) => {
       const list = responses?.filter((r) =>
         f.id === 'track'
-          ? r.track.indexOf(o.id) >= 0
-          : r.superteamMember.indexOf(o.id) >= 0
+          ? r.tracks.indexOf(o.id) >= 0
+          : r.superteam.indexOf(o.id) >= 0
       );
       return {
         ...o,

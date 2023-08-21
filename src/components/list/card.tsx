@@ -1,5 +1,6 @@
 import { Tooltip } from '@geist-ui/core';
 import { useRouter } from 'next/router';
+import type { Key } from 'react';
 
 import type { Response } from '@/utils/responses';
 
@@ -11,7 +12,7 @@ const Card = ({ response }: CardProps) => {
   const router = useRouter();
 
   let flag = '';
-  switch (response?.superteamMember) {
+  switch (response?.superteam) {
     case 'India':
       flag = '🇮🇳';
       break;
@@ -27,13 +28,26 @@ const Card = ({ response }: CardProps) => {
     case 'Turkey':
       flag = '🇹🇷';
       break;
+    case 'UAE':
+      flag = '🇦🇪';
+      break;
+    case 'UK':
+      flag = '🇬🇧';
+      break;
+    case 'Nigeria':
+      flag = '🇳🇬';
+      break;
+    case 'Israel':
+      flag = '🇮🇱';
+      break;
+    case 'Brazil':
+      flag = '🇧🇷';
+      break;
     default:
       flag = '';
   }
 
-  const teamMembers = (response?.teamMembersNames || '').split(',');
-
-  const tracks = (response?.track || '').split(',');
+  const tracks = response?.tracks || '';
 
   let logoUrl = response?.logoUrl || '';
   if (logoUrl.indexOf('drive.google.com') >= 0) {
@@ -62,38 +76,38 @@ const Card = ({ response }: CardProps) => {
             src={
               logoUrl || `${router.basePath}/assets/images/profile-picture.png`
             }
-            alt={response.name}
+            alt={response.projectTitle}
           />
         </div>
         <div className="w-full pl-2 md:pl-4">
           <div className="mb-1 flex w-full justify-between">
             <div className="flex items-center justify-start">
               <a
-                href={response?.productUrl ? response?.productUrl : '#'}
+                href={response?.projectLink ? response?.projectLink : '#'}
                 target="_blank"
                 className="flex items-center text-lg font-bold text-zinc-100 hover:underline"
                 rel="noreferrer"
               >
-                {response.name}
+                {response.projectTitle}
               </a>
               <Tooltip
                 text={
                   <span className="font-sans text-sm">
-                    Project from Superteam {response?.superteamMember}
+                    Project from Superteam {response?.superteam}
                   </span>
                 }
                 placement="right"
                 type="dark"
               >
-                <span className="ml-2" data-tooltip-id={response?.name}>
+                <span className="ml-2" data-tooltip-id={response?.projectTitle}>
                   {flag}
                 </span>
               </Tooltip>
             </div>
-            {response?.demoUrl && (
+            {response?.demoLink && (
               <div className="flex items-center justify-end">
                 <a
-                  href={response?.demoUrl}
+                  href={response?.demoLink}
                   target="_blank"
                   className="flex items-center text-sm font-bold text-superteam-secondary hover:underline"
                   rel="noreferrer"
@@ -113,9 +127,9 @@ const Card = ({ response }: CardProps) => {
           </div>
           <p className="mb-2 text-sm text-zinc-300">{response.description}</p>
           <p className="mb-2 flex flex-wrap items-center justify-start">
-            {response?.productUrl && (
+            {response?.projectLink && (
               <a
-                href={response?.productUrl}
+                href={response?.projectLink}
                 target="_blank"
                 className="flex items-center justify-start text-xs font-thin text-zinc-400 hover:text-zinc-100"
                 rel="noreferrer"
@@ -137,12 +151,12 @@ const Card = ({ response }: CardProps) => {
                 <span className="hover:underline">Website</span>
               </a>
             )}
-            {response?.productUrl && (
+            {response?.projectLink && (
               <span className="px-2 text-xs text-zinc-500">·</span>
             )}
-            {response?.codeUrl && (
+            {response?.githubUrl && (
               <a
-                href={response?.codeUrl}
+                href={response?.githubUrl}
                 target="_blank"
                 className="flex items-center justify-start text-xs font-thin text-zinc-400 hover:text-zinc-100"
                 rel="noreferrer"
@@ -164,46 +178,45 @@ const Card = ({ response }: CardProps) => {
                 <span className="hover:underline">Code</span>
               </a>
             )}
-            {response?.codeUrl && (
+            {response?.githubUrl && (
               <span className="px-2 text-xs text-zinc-500">·</span>
             )}
-            {response?.teamLeadName &&
-              (response?.teamLeadSocialUrl ? (
-                <a
-                  href={
-                    response?.teamLeadSocialUrl
-                      ? response?.teamLeadSocialUrl
-                      : '#'
-                  }
-                  target={response?.teamLeadSocialUrl ? '_blank' : '_self'}
-                  className="flex items-center justify-start text-xs font-thin text-zinc-400 hover:text-zinc-100"
-                  rel="noreferrer"
-                >
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    strokeWidth="1.5"
-                    stroke="currentColor"
-                    className="h-5 w-5 pr-1"
+            {response?.teamLead &&
+              (response?.teamLeadTwitter ? (
+                <>
+                  <a
+                    href={
+                      response?.teamLead
+                        ? `https://twitter.com/${response?.teamLeadTwitter}`
+                        : '#'
+                    }
+                    target={response?.teamLeadTwitter ? '_blank' : '_self'}
+                    className="flex items-center justify-start text-xs font-thin text-zinc-400 hover:text-zinc-100"
+                    rel="noreferrer"
                   >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      d="M17.982 18.725A7.488 7.488 0 0012 15.75a7.488 7.488 0 00-5.982 2.975m11.963 0a9 9 0 10-11.963 0m11.963 0A8.966 8.966 0 0112 21a8.966 8.966 0 01-5.982-2.275M15 9.75a3 3 0 11-6 0 3 3 0 016 0z"
-                    />
-                  </svg>
-                  <span className="hover:underline">
-                    {response?.teamLeadName}
-                    {response?.teamMembersNames && (
-                      <span className="break-all">
-                        {' '}
-                        + {teamMembers?.length} other{' '}
-                        {teamMembers?.length === 1 ? 'member' : 'members'}
-                      </span>
-                    )}
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      strokeWidth="1.5"
+                      stroke="currentColor"
+                      className="h-5 w-5 pr-1"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        d="M17.982 18.725A7.488 7.488 0 0012 15.75a7.488 7.488 0 00-5.982 2.975m11.963 0a9 9 0 10-11.963 0m11.963 0A8.966 8.966 0 0112 21a8.966 8.966 0 01-5.982-2.275M15 9.75a3 3 0 11-6 0 3 3 0 016 0z"
+                      />
+                    </svg>
+                    <span className="hover:underline">
+                      {response?.teamLead}
+                    </span>
+                  </a>
+                  <span className="white-space: pre flex items-center justify-start text-xs font-thin text-zinc-400">
+                    &nbsp;
+                    {'and team'}
                   </span>
-                </a>
+                </>
               ) : (
                 <span className="flex items-center justify-start text-xs font-thin text-zinc-400">
                   <svg
@@ -222,28 +235,24 @@ const Card = ({ response }: CardProps) => {
                   </svg>
 
                   <span className="">
-                    {response?.teamLeadName}
-                    {response?.teamMembersNames && (
-                      <span className="break-all">
-                        {' '}
-                        + {teamMembers?.length} other{' '}
-                        {teamMembers?.length === 1 ? 'member' : 'members'}
-                      </span>
-                    )}
+                    {response?.teamLead}
+                    {' and team'}
                   </span>
                 </span>
               ))}
           </p>
-          {response?.track && (
+          {response?.tracks && (
             <p className="">
-              {tracks.map((track, index) => (
-                <span
-                  className="mr-2 rounded-full bg-zinc-700 px-1.5 py-0.5 text-xs font-medium text-zinc-300"
-                  key={index}
-                >
-                  {track}
-                </span>
-              ))}
+              {tracks.map(
+                (track: string | null, index: Key | null | undefined) => (
+                  <span
+                    className="mr-2 rounded-full bg-zinc-700 px-1.5 py-0.5 text-xs font-medium text-zinc-300"
+                    key={index}
+                  >
+                    {track}
+                  </span>
+                )
+              )}
             </p>
           )}
         </div>

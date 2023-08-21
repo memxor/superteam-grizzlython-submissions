@@ -1,7 +1,8 @@
 import { useEffect, useState } from 'react';
 
 import { initFilters } from '@/utils/filters';
-import { responses } from '@/utils/responses';
+import { projectDirectory } from '@/utils/getDatabase';
+import type { Response } from '@/utils/responses';
 
 import Card from './card';
 import Filters from './filters';
@@ -9,10 +10,43 @@ import MobileFilters from './mobileFilters';
 import Pagination from './pagination';
 import Search from './search';
 
+const getRecords = async () => {
+  const listItems: Response[] = [];
+  projectDirectory.select().eachPage((records, fetchNextPage) => {
+    records.forEach((record, index) => {
+      listItems.push({
+        order: index,
+        projectTitle: record.get('Project Title') || null,
+        description: record.get('Description') || null,
+        tracks: record.get('Tracks') || null,
+        demoLink: record.get('Demo Link') || null,
+        projectLink: record.get('Project Link') || null,
+        githubUrl: record.get('GitHub URL') || null,
+        superteam: record.get('Superteam') || null,
+        logoUrl: record.get('LogoURL') || null,
+        teamLead: record.get('Lead Name') || null,
+        teamLeadTwitter: record.get('LeadTwitter') || null,
+      });
+    });
+    fetchNextPage();
+  });
+  return listItems;
+};
+
 const List = () => {
+  const [responses, setResponses] = useState(Array<Response>);
+  useEffect(() => {
+    getRecords()
+      .then((records) => {
+        console.log(records);
+        setResponses(records);
+      })
+      .catch((error) => console.log(error));
+  }, []);
+
   const [filteredResponses, setFilteredResponses] = useState(
     responses.sort((a, b) =>
-      a.name.toLowerCase() < b.name.toLowerCase() ? -1 : 1
+      a.projectTitle.toLowerCase() < b.projectTitle.toLowerCase() ? -1 : 1
     )
   );
   const initializedFilters = initFilters(responses);
@@ -26,27 +60,25 @@ const List = () => {
   );
 
   useEffect(() => {
-    // Apply search
+    console.log(`Responses Length : ${responses.length}`);
     const searchedResponses = !searchFilters.searchText
       ? responses
       : responses.filter(
           (r) =>
-            (r?.name || '')
+            (r?.projectTitle || '')
               .toLowerCase()
               .indexOf(searchFilters.searchText.toLowerCase()) >= 0 ||
             (r?.description || '')
               .toLowerCase()
               .indexOf(searchFilters.searchText.toLowerCase()) >= 0 ||
-            (r?.teamLeadName || '')
-              .toLowerCase()
-              .indexOf(searchFilters.searchText.toLowerCase()) >= 0 ||
-            (r?.teamMembersNames || '')
+            (r?.teamLead || '')
               .toLowerCase()
               .indexOf(searchFilters.searchText.toLowerCase()) >= 0
         );
 
     // Apply filters
     let finalResponses = [];
+
     const trueFilters = searchFilters.filters
       .map((f) => {
         const trueOptions = f.options.filter((o) => o.isSelected);
@@ -61,7 +93,7 @@ const List = () => {
       .filter((f) => !!f);
     if (!trueFilters.length) {
       const changedResponses = searchedResponses?.sort((a, b) =>
-        a.name.toLowerCase() < b.name.toLowerCase() ? -1 : 1
+        a.projectTitle.toLowerCase() < b.projectTitle.toLowerCase() ? -1 : 1
       );
       finalResponses = changedResponses;
       // setFilteredResponses(changedResponses);
@@ -76,17 +108,17 @@ const List = () => {
       const changedResponses = searchedResponses
         ?.filter((r) => {
           const isTrack = trackOptions?.length
-            ? !!trackOptions.find((t) => r?.track?.indexOf(t) >= 0)
+            ? !!trackOptions.find((t) => r?.tracks?.indexOf(t) >= 0)
             : true;
           const isSuperteamMember = superteamMemberOptions?.length
             ? !!superteamMemberOptions.find(
-                (st) => r?.superteamMember?.indexOf(st) >= 0
+                (st) => r?.superteam?.indexOf(st) >= 0
               )
             : true;
           return isTrack && isSuperteamMember;
         })
         ?.sort((a, b) =>
-          a.name.toLowerCase() < b.name.toLowerCase() ? -1 : 1
+          a.projectTitle.toLowerCase() < b.projectTitle.toLowerCase() ? -1 : 1
         );
       finalResponses = changedResponses;
       // setFilteredResponses(changedResponses);
@@ -94,11 +126,11 @@ const List = () => {
 
     // Apply pagination
     setTotalFilteredCount(finalResponses.length);
-    console.log('file: list.tsx:20 ~ List ~ page:', searchFilters.page);
+    // console.log('file: list.tsx:20 ~ List ~ page:', searchFilters.page);
     const from = searchFilters.page * 10;
     const to = searchFilters.page * 10 + 10;
     setFilteredResponses(finalResponses.slice(from, to));
-  }, [searchFilters]);
+  }, [searchFilters, responses]);
 
   return (
     <div className="w-full sm:px-8">
