@@ -1,4 +1,4 @@
-import { responses } from "@/utils/responses";
+import { responses } from '@/utils/responses';
 
 const Stats = () => {
   const stats = [
