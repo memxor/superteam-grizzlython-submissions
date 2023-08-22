@@ -60,7 +60,7 @@ const Filters = ({ searchFilters, setSearchFilters }: FiltersProps) => {
         <button
           type="button"
           onClick={() => removeFilters()}
-          className="cursor-pointer text-sm font-thin text-red-400 hover:text-zinc-100 hover:underline"
+          className="cursor-pointer text-sm font-thin text-[#14F195] hover:text-zinc-100 hover:underline"
         >
           Clear All
         </button>

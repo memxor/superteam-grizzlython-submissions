@@ -1,7 +1,7 @@
 const navigation = {
   main: [
     { name: 'About Superteam', href: '//superteam.fun/' },
-    { name: 'About Grizzlython', href: '//solana.com/grizzlython' },
+    { name: 'About Hyperdrive', href: '//solana.com/hyperdrive' },
     {
       name: 'Learn',
       href: '//www.youtube.com/channel/UCi-pkXLbm7sqXFhV1NBLUfQ',
@@ -99,7 +99,7 @@ const Footer = () => {
                 </a>
                 <br />
                 <a
-                  href="https://twitter.com/thecryptodiver"
+                  href="https://twitter.com/memxor_"
                   target="_blank"
                   rel="noreferrer"
                   className="text-zinc-600 hover:underline"

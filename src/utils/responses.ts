@@ -11,5 +11,3 @@ export type Response = {
   teamLead: any;
   teamLeadTwitter: any;
 };
-
-export const responses: Array<Response> = [];

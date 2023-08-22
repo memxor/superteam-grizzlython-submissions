@@ -12,7 +12,7 @@ import Search from './search';
 
 const getRecords = async () => {
   const listItems: Response[] = [];
-  projectDirectory.select().eachPage((records, fetchNextPage) => {
+  await projectDirectory.select().eachPage((records, fetchNextPage) => {
     records.forEach((record, index) => {
       listItems.push({
         order: index,
@@ -38,8 +38,12 @@ const List = () => {
   useEffect(() => {
     getRecords()
       .then((records) => {
-        console.log(records);
         setResponses(records);
+        setSearchFilters({
+          page: 0,
+          searchText: '',
+          filters: initFilters(records),
+        });
       })
       .catch((error) => console.log(error));
   }, []);
@@ -49,12 +53,13 @@ const List = () => {
       a.projectTitle.toLowerCase() < b.projectTitle.toLowerCase() ? -1 : 1
     )
   );
-  const initializedFilters = initFilters(responses);
+
   const [searchFilters, setSearchFilters] = useState({
     page: 0,
     searchText: '',
-    filters: initializedFilters,
+    filters: initFilters(responses),
   });
+
   const [totalFilteredCount, setTotalFilteredCount] = useState(
     responses?.length
   );

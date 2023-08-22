@@ -60,13 +60,13 @@ const Meta = (props: IMetaProps) => {
           site_name: AppConfig.site_name,
           images: [
             {
-              url: 'https://grizz.superteam.fun/assets/images/site-image.png',
+              url: `${router.basePath}/assets/images/site-image.png`,
               alt: props.title,
             },
           ],
         }}
         twitter={{
-          handle: '@thecryptodiver',
+          handle: '@memxor_',
           site: '@SuperteamDAO',
           cardType: 'summary_large_image',
         }}

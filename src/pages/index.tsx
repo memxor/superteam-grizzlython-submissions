@@ -9,8 +9,8 @@ const Home = () => {
     <Default
       meta={
         <Meta
-          title="Superteam Submissions | Grizzlython Hackathon"
-          description="Explore a curated list of Grizzlython hackathon submissions made by Superteam members"
+          title="Hyperdrive Submissions | Hyperdrive Hackathon"
+          description="Explore a curated list of Hyperdrive hackathon submissions made by Superteam members"
         />
       }
     >

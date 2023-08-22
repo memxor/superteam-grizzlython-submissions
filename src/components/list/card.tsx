@@ -109,7 +109,7 @@ const Card = ({ response }: CardProps) => {
                 <a
                   href={response?.demoLink}
                   target="_blank"
-                  className="flex items-center text-sm font-bold text-superteam-secondary hover:underline"
+                  className="flex items-center text-sm font-bold hover:underline text-[#14F195]"
                   rel="noreferrer"
                 >
                   <svg
