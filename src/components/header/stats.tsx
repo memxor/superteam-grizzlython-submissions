@@ -1,4 +1,4 @@
-import { getResponses } from "../list/list";
+import { responses } from "@/utils/responses";
 
 const Stats = () => {
   const stats = [
@@ -19,7 +19,7 @@ const Stats = () => {
       id: 4,
       mobileName: 'Superteam Projects',
       name: 'Superteam Submissions',
-      value: `${getResponses()?.length}+`,
+      value: `${responses?.length}+`,
     },
   ];
 
