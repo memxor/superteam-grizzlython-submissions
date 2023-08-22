@@ -35,6 +35,11 @@ const getRecords = async () => {
 
 const List = () => {
   const [responses, setResponses] = useState(Array<Response>);
+  const [searchFilters, setSearchFilters] = useState({
+    page: 0,
+    searchText: '',
+    filters: initFilters(responses),
+  });
   useEffect(() => {
     getRecords()
       .then((records) => {
@@ -53,12 +58,6 @@ const List = () => {
       a.projectTitle.toLowerCase() < b.projectTitle.toLowerCase() ? -1 : 1
     )
   );
-
-  const [searchFilters, setSearchFilters] = useState({
-    page: 0,
-    searchText: '',
-    filters: initFilters(responses),
-  });
 
   const [totalFilteredCount, setTotalFilteredCount] = useState(
     responses?.length
