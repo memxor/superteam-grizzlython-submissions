@@ -1,6 +1,6 @@
-# Superteam Grizzlython Submissions
+# Superteam Hyperdrive Submissions
 
-Website to find all the Superteam submissions for Grizzlython hackathon
+Website to find all the Superteam submissions for Hyperdrive hackathon
 
 ### Deploy to production
 
