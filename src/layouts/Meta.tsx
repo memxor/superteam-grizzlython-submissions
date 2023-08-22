@@ -60,7 +60,7 @@ const Meta = (props: IMetaProps) => {
           site_name: AppConfig.site_name,
           images: [
             {
-              url: `${router.basePath}/assets/images/site-image.png`,
+              url: `${router.basePath}/assets/images/seo-image.png`,
               alt: props.title,
             },
           ],
