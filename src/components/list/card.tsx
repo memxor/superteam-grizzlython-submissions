@@ -256,8 +256,8 @@ const Card = ({ response }: CardProps) => {
             </p>
           )}
           {response.helpWanted && (
-            <div className="flex items-center justify-start py-1">
-              <div className="text-sm font-bold text-[#14F195]">
+            <div className="flex items-center justify-start py-2">
+              <div className="text-sm font-bold text-[#FBC91B]">
                 Help Wanted:{' '}
               </div>
               &nbsp;
