@@ -54,6 +54,20 @@ const Filters = ({ searchFilters, setSearchFilters }: FiltersProps) => {
     });
   };
 
+  const getFlag = (countryName: string): string => {
+    if (countryName === 'India') return 'India 🇮🇳';
+    if (countryName === 'Turkey') return 'Turkey 🇹🇷';
+    if (countryName === 'Vietnam') return 'Vietnam 🇻🇳';
+    if (countryName === 'Germany') return 'Germany 🇩🇪';
+    if (countryName === 'Mexico') return 'Mexico 🇲🇽';
+    if (countryName === 'UAE') return 'UAE 🇦🇪';
+    if (countryName === 'UK') return 'UK 🇬🇧';
+    if (countryName === 'Nigeria') return 'Nigeria 🇳🇬';
+    if (countryName === 'Israel') return 'Israel 🇮🇱';
+    if (countryName === 'Brazil') return 'Brazil 🇧🇷';
+    return countryName;
+  };
+
   return (
     <>
       <div className="flex items-center justify-end">
@@ -98,7 +112,7 @@ const Filters = ({ searchFilters, setSearchFilters }: FiltersProps) => {
                           : ''
                       }`}
                     >
-                      {option.id}{' '}
+                      {getFlag(option.id)}{' '}
                       <span className="text-zinc-400">({option.count})</span>
                     </label>
                   </div>

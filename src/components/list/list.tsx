@@ -19,13 +19,14 @@ const getRecords = async () => {
         projectTitle: record.get('Project Title') || null,
         description: record.get('Description') || null,
         tracks: record.get('Tracks') || null,
-        demoLink: record.get('Demo Link') || null,
+        demoLink: record.get('Twitter URL') || null,
         projectLink: record.get('Project Link') || null,
         githubUrl: record.get('GitHub URL') || null,
         superteam: record.get('Superteam') || null,
         logoUrl: record.get('LogoURL') || null,
         teamLead: record.get('Lead Name') || null,
         teamLeadTwitter: record.get('LeadTwitter') || null,
+        helpWanted: record.get('Help wanted') || null,
       });
     });
     fetchNextPage();

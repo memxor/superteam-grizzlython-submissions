@@ -10,6 +10,7 @@ export type Response = {
   logoUrl: any;
   teamLead: any;
   teamLeadTwitter: any;
+  helpWanted: any;
 };
 
 export const responses: Array<Response> = [];

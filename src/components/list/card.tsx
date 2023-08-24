@@ -109,7 +109,7 @@ const Card = ({ response }: CardProps) => {
                 <a
                   href={response?.demoLink}
                   target="_blank"
-                  className="flex items-center text-sm font-bold hover:underline text-[#14F195]"
+                  className="flex items-center text-sm font-bold text-[#14F195] hover:underline"
                   rel="noreferrer"
                 >
                   <svg
@@ -120,7 +120,7 @@ const Card = ({ response }: CardProps) => {
                   >
                     <path d="M6 3a3 3 0 00-3 3v1.5a.75.75 0 001.5 0V6A1.5 1.5 0 016 4.5h1.5a.75.75 0 000-1.5H6zM16.5 3a.75.75 0 000 1.5H18A1.5 1.5 0 0119.5 6v1.5a.75.75 0 001.5 0V6a3 3 0 00-3-3h-1.5zM12 8.25a3.75 3.75 0 100 7.5 3.75 3.75 0 000-7.5zM4.5 16.5a.75.75 0 00-1.5 0V18a3 3 0 003 3h1.5a.75.75 0 000-1.5H6A1.5 1.5 0 014.5 18v-1.5zM21 16.5a.75.75 0 00-1.5 0V18a1.5 1.5 0 01-1.5 1.5h-1.5a.75.75 0 000 1.5H18a3 3 0 003-3v-1.5z" />
                   </svg>
-                  View Demo
+                  View Twitter
                 </a>
               </div>
             )}
@@ -212,7 +212,7 @@ const Card = ({ response }: CardProps) => {
                       {response?.teamLead}
                     </span>
                   </a>
-                  <span className="white-space: pre flex items-center justify-start text-xs font-thin text-zinc-400">
+                  <span className="white-space: flex items-center justify-start text-xs font-thin text-zinc-400">
                     &nbsp;
                     {'and team'}
                   </span>
@@ -254,6 +254,17 @@ const Card = ({ response }: CardProps) => {
                 )
               )}
             </p>
+          )}
+          {response.helpWanted && (
+            <div className="flex items-center justify-start py-1">
+              <div className="text-sm font-bold text-[#14F195]">
+                Help Wanted:{' '}
+              </div>
+              &nbsp;
+              <div className="text-sm text-[#E5E5E3]">
+                {response.helpWanted}
+              </div>
+            </div>
           )}
         </div>
       </div>
